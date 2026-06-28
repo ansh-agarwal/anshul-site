@@ -5,29 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Escaping Configuration Hell — Anshul Agarwal</title>
 <style>
-  :root{--bg:#0b1120;--txt:#e2e8f0;--mut:#a3b2c7;--dim:#64748b;--line:rgba(255,255,255,.08);--accent:#38bdf8;--accent2:#818cf8;--code:#0f1c33;}
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 600px at 70% -10%,#15213b 0,var(--bg) 55%);color:var(--txt);line-height:1.7;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:720px;margin:0 auto;padding:64px 24px}
-  a.back{color:var(--accent);text-decoration:none;font-size:14px}a.back:hover{text-decoration:underline}
-  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:28px 0 12px}
-  h1{font-size:clamp(30px,5vw,42px);line-height:1.12;letter-spacing:-.02em;margin-bottom:14px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  .meta{color:var(--dim);font-size:14px;margin-bottom:36px}
-  h2{font-size:22px;margin:36px 0 12px;letter-spacing:-.01em}
-  p{color:var(--mut);font-size:17px;margin-bottom:18px}
-  ul{color:var(--mut);font-size:17px;margin:0 0 18px 22px}li{margin:6px 0}
-  em{color:#cbd5e1}strong{color:#e2e8f0}
-  pre{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:18px;overflow:auto;margin-bottom:20px;font-size:14px}
-  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#9ad8ff}
-  p code,li code{background:var(--code);padding:2px 6px;border-radius:6px;font-size:15px}
-  blockquote{border-left:3px solid var(--accent);padding-left:16px;margin:0 0 20px;color:#cbd5e1;font-style:italic}
-  footer{border-top:1px solid var(--line);margin-top:48px;padding-top:24px;color:var(--dim);font-size:13px}
+  body{font-family:"Times New Roman",Times,serif;max-width:660px;margin:40px auto;padding:0 18px;color:#000;background:#fff;line-height:1.6;font-size:18px}
+  a{color:#0000ee}a:visited{color:#551a8b}
+  h1{font-size:28px;margin:0 0 4px}
+  .meta{color:#555;font-style:italic;margin-bottom:18px}
+  h2{font-size:20px;margin:24px 0 8px}
+  pre{background:#f4f4f4;border:1px solid #ccc;padding:12px;overflow:auto;font-size:14px}
+  code{font-family:Menlo,Consolas,monospace}
+  p code,li code{background:#f4f4f4;padding:1px 4px}
+  blockquote{border-left:3px solid #888;margin:16px 0;padding-left:14px;color:#333;font-style:italic}
+  hr{border:none;border-top:1px solid #000;margin:24px 0}
+  ul{margin:6px 0 6px 22px}li{margin:5px 0}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <a class="back" href="../index.html">← Back</a>
-  <div class="eyebrow">Essay</div>
+  <p><a href="../index.html">&larr; Back</a></p>
   <h1>Escaping Configuration Hell</h1>
   <div class="meta">Why config rots, and how to make it boring again</div>
 
@@ -36,10 +28,10 @@
   <h2>How it happens</h2>
   <p>Config sprawls because adding a knob is the path of least resistance. Hard-coding feels dirty, so we "make it configurable" — and defer the real decision to runtime, forever. The costs are invisible at first and compounding:</p>
   <ul>
-    <li><strong>It's untyped.</strong> A string where an integer was meant; a typo in a key that silently falls back to a default; a boolean that's actually the string <code>"false"</code> (which is truthy).</li>
-    <li><strong>It's unvalidated.</strong> The system boots happily with nonsense config and fails three hours later, deep in a code path, far from the cause.</li>
-    <li><strong>It's scattered.</strong> Defaults in code, overrides in files, more overrides in env vars, secrets in a vault — and the <em>effective</em> value is whatever wins a precedence war nobody wrote down.</li>
-    <li><strong>It's a fake feature.</strong> Every flag is a branch you now have to test. Ten booleans is 1,024 theoretical configurations; you've tested maybe three.</li>
+    <li><b>It's untyped.</b> A string where an integer was meant; a typo'd key that silently falls back to a default; a boolean that's actually the string <code>"false"</code> (which is truthy).</li>
+    <li><b>It's unvalidated.</b> The system boots happily with nonsense config and fails three hours later, deep in a code path, far from the cause.</li>
+    <li><b>It's scattered.</b> Defaults in code, overrides in files, more overrides in env vars, secrets in a vault — and the <em>effective</em> value is whatever wins a precedence war nobody wrote down.</li>
+    <li><b>It's a fake feature.</b> Every flag is a branch you now have to test. Ten booleans is 1,024 configurations; you've tested maybe three.</li>
   </ul>
 
   <blockquote>A config option is a decision you refused to make, handed to your future self at 2 a.m.</blockquote>
@@ -47,17 +39,17 @@
   <h2>The way out: treat config like code</h2>
   <p>The fix isn't a better file format. It's applying the same discipline to config that you'd apply to any other input.</p>
   <ul>
-    <li><strong>Parse it into a typed object at startup — and fail loud.</strong> Validate the whole config <em>once</em>, at boot, against a schema. If it's wrong, refuse to start with a precise error. Never let bad config reach a request. (This is "parse, don't validate" applied to your own knobs.)</li>
-    <li><strong>One resolved source of truth.</strong> Collapse the layers (defaults → file → env → flags) into a single immutable, typed config value early, then pass <em>that</em> around. No component re-reads <code>process.env</code> in the middle of a request.</li>
-    <li><strong>Convention over configuration.</strong> The best knob is the one you deleted by choosing a sane default. Make the common case need zero config; reserve options for genuine, irreducible variation.</li>
-    <li><strong>Separate the three kinds.</strong> <em>Secrets</em> (vault), <em>environment wiring</em> (URLs, credentials — differ per env), and <em>behaviour</em> (feature flags, business rules) have different lifecycles and owners. Mixing them is half the pain.</li>
-    <li><strong>Make business rules data, not config.</strong> When "configuration" starts encoding logic — eligibility, pricing, promos — it has outgrown YAML. Give it a real typed model (and ideally a tested rules engine), not another nested map.</li>
+    <li><b>Parse it into a typed object at startup — and fail loud.</b> Validate the whole config once, at boot, against a schema. If it's wrong, refuse to start with a precise error. Never let bad config reach a request.</li>
+    <li><b>One resolved source of truth.</b> Collapse the layers (defaults → file → env → flags) into a single immutable, typed value early, then pass <em>that</em> around. No component re-reads <code>process.env</code> mid-request.</li>
+    <li><b>Convention over configuration.</b> The best knob is the one you deleted by choosing a sane default. Make the common case need zero config.</li>
+    <li><b>Separate the three kinds.</b> Secrets (vault), environment wiring (URLs, credentials), and behaviour (feature flags, business rules) have different lifecycles and owners. Mixing them is half the pain.</li>
+    <li><b>Make business rules data, not config.</b> When "configuration" starts encoding logic — eligibility, pricing, promos — it has outgrown YAML. Give it a real typed model, not another nested map.</li>
   </ul>
 
   <h2>The test</h2>
-  <p>A healthy config system answers three questions instantly: <em>What is the effective value right now?</em> <em>Where did it come from?</em> <em>Will the app refuse to start if it's wrong?</em> If you can't answer those, you don't have configuration — you have a distributed mutable global, and it will bite you. The goal is to make config the most boring part of the system: typed, validated, centralised, and small.</p>
+  <p>A healthy config system answers three questions instantly: <em>What is the effective value right now? Where did it come from? Will the app refuse to start if it's wrong?</em> If you can't answer those, you don't have configuration — you have a distributed mutable global, and it will bite you. Make config the most boring part of the system: typed, validated, centralised, small.</p>
 
-  <footer>Anshul Agarwal · Writing</footer>
-</div>
+  <hr />
+  <p class="meta">Anshul Agarwal · Writing</p>
 </body>
 </html>

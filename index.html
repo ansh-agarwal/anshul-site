@@ -3,171 +3,72 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Anshul Agarwal — Fractional CTO & Staff Engineer</title>
+<title>Anshul Agarwal</title>
 <style>
-  :root{
-    --bg:#0b1120; --bg2:#0f172a; --card:rgba(255,255,255,.035);
-    --line:rgba(255,255,255,.08); --txt:#e2e8f0; --mut:#94a3b8; --dim:#64748b;
-    --accent:#38bdf8; --accent2:#818cf8; --good:#22c55e;
-  }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    background:radial-gradient(1200px 600px at 70% -10%,#15213b 0,var(--bg) 55%); color:var(--txt);
-    line-height:1.6; -webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:860px;margin:0 auto;padding:0 24px}
-  section{padding:64px 0;border-bottom:1px solid var(--line)}
-  section:last-child{border-bottom:none}
-  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
-  h1{font-size:clamp(34px,7vw,56px);line-height:1.05;letter-spacing:-.02em;margin-bottom:18px}
-  h1 .grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-  h2{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:28px}
-  .lead{font-size:clamp(18px,2.4vw,21px);color:var(--mut);max-width:640px}
-  /* hero */
-  .hero{padding-top:88px}
-  .pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--good);
-    border:1px solid rgba(34,197,94,.3);border-radius:999px;padding:6px 14px;margin-bottom:26px}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--good);animation:pulse 2s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 9px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
-  .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px}
-  .btn{display:inline-block;padding:12px 22px;border-radius:12px;font-weight:600;font-size:15px;text-decoration:none;transition:.2s}
-  .btn.primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#06121f}
-  .btn.primary:hover{filter:brightness(1.08);transform:translateY(-1px)}
-  .btn.ghost{border:1px solid var(--line);color:var(--txt)}
-  .btn.ghost:hover{border-color:var(--accent);color:var(--accent)}
-  /* offer cards */
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;transition:.2s}
-  .card:hover{border-color:rgba(56,189,248,.35);transform:translateY(-2px)}
-  .card h3{font-size:17px;margin-bottom:8px}
-  .card p{font-size:14.5px;color:var(--mut)}
-  .card .ic{font-size:22px;margin-bottom:14px;display:block}
-  /* work */
-  .work{display:flex;flex-direction:column;gap:18px}
-  .item{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px}
-  .item h3{font-size:19px;margin-bottom:6px}
-  .item .tag{font-size:12px;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
-  .item p{color:var(--mut);font-size:15px;margin-top:10px}
-  .item ul{margin:12px 0 0 18px;color:var(--mut);font-size:15px}
-  .item li{margin:4px 0}
-  /* about */
-  .skills{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
-  .chip{font-size:13px;color:var(--mut);border:1px solid var(--line);border-radius:999px;padding:6px 13px}
-  .note{font-size:12.5px;color:var(--dim);font-style:italic}
-  a.inline{color:var(--accent);text-decoration:none}a.inline:hover{text-decoration:underline}
-  footer{padding:40px 0;text-align:center;color:var(--dim);font-size:13px}
+  body{font-family:"Times New Roman",Times,serif;max-width:660px;margin:40px auto;
+       padding:0 18px;color:#000;background:#fff;line-height:1.55;font-size:18px;}
+  h1{font-size:30px;font-weight:bold;margin:0 0 2px;text-align:center;}
+  .sub{text-align:center;color:#333;margin-bottom:6px;}
+  hr{border:none;border-top:1px solid #000;margin:18px 0;}
+  h2{font-size:20px;margin:26px 0 8px;}
+  a{color:#0000ee;}
+  a:visited{color:#551a8b;}
+  ul{margin:6px 0 6px 22px;padding:0;}
+  li{margin:4px 0;}
+  p{margin:10px 0;}
+  .small{font-size:14px;color:#555;}
+  .center{text-align:center;}
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <!-- HERO -->
-  <section class="hero">
-    <span class="pill"><span class="dot"></span>Open to fractional CTO &amp; advisory engagements</span>
-    <div class="eyebrow">Anshul Agarwal</div>
-    <h1>Fractional CTO &amp;<br><span class="grad">Staff Engineer</span></h1>
-    <p class="lead">I help early-stage teams turn an idea into a system that scales — setting technical direction, designing the architecture, and shipping the first versions that actually ship.</p>
-    <div class="cta">
-      <a class="btn primary" href="#work">See selected work</a>
-      <a class="btn ghost" href="#contact">Get in touch</a>
-    </div>
-  </section>
+  <h1>Anshul Agarwal</h1>
+  <p class="sub">Fractional CTO &amp; Staff Engineer &nbsp;|&nbsp; Engineering systems · Problem solving</p>
+  <p class="center small">Open to fractional CTO, advisory, and architecture-review engagements.</p>
 
-  <!-- WHAT I DO -->
-  <section id="services">
-    <h2>How I help</h2>
-    <div class="grid">
-      <div class="card"><span class="ic">🧭</span><h3>Technical strategy</h3><p>Set the roadmap, make the build-vs-buy calls, and translate product goals into an engineering plan founders can fund and hire against.</p></div>
-      <div class="card"><span class="ic">🏗️</span><h3>Architecture &amp; system design</h3><p>Design APIs and systems that survive growth — clear contracts, sane data models, and the right complexity for the stage you're at.</p></div>
-      <div class="card"><span class="ic">🤖</span><h3>AI &amp; automation</h3><p>Put LLMs and multi-agent automation to real work — not demos — with attention to cost, reliability, and where humans stay in the loop.</p></div>
-      <div class="card"><span class="ic">👥</span><h3>Team &amp; standards</h3><p>Hire the first engineers, set review and design-doc culture, and mentor the team toward shipping with quality at speed.</p></div>
-    </div>
-  </section>
+  <hr />
 
-  <!-- SELECTED WORK -->
-  <section id="work">
-    <h2>Selected work</h2>
-    <div class="work">
+  <h2>About</h2>
+  <p>I build and lead engineering for systems that have to hold up — APIs, platforms, and the
+  messy real-world flows behind them. My instinct is to start from the problem, not the framework:
+  model the domain honestly, make the hard cases representable rather than patched-over, and let
+  good structure carry the weight so the code — and the team — stays simple as it grows. I'm equally
+  at home going deep on a type model or a data flow and stepping back to set technical direction.
+  Most of my best work is unglamorous: turning a tangled requirement into a clean contract, and a
+  fragile system into one people can reason about.</p>
 
-      <div class="item">
-        <span class="tag">System &amp; API design</span>
-        <h3>Loyalty Offers API — designed for external partners</h3>
-        <p>Led the design of a critical, externally-consumed offers/payments API (cash + points "burn", splits, custom slider, stacked promos, eligibility unlocks). Explored 50+ response-structure iterations against the patterns of Stripe, Shopify, Google &amp; the REST canon, then converged on a typed, evolvable contract.</p>
-        <ul>
-          <li>Typed money model (cash &amp; points), discriminated-union payment options, server-computed base vs effective pricing.</li>
-          <li>Promotions as data — <code>when → then</code> rules with status &amp; precedence — and Problem-Details errors + idempotent commits for safe external use.</li>
-        </ul>
-      </div>
+  <h2>Selected Work</h2>
+  <ul>
+    <li><b>Loyalty Offers API (system &amp; API design).</b> Designed a critical, externally-consumed
+        offers/payments API — cash + points, splits, custom slider, stacked promos, eligibility
+        unlocks. Surveyed Stripe, Shopify, Google and the REST canon across 50+ response-structure
+        iterations, then converged on a typed, evolvable contract.</li>
+    <li><b>Multi-agent personal-assistant platform (0&nbsp;→&nbsp;1, AI systems).</b> Self-hosted
+        multi-agent assistant — isolated "brains" with their own memory, tools, routing and
+        scheduled jobs. A study in agent orchestration, isolation, and cost control.</li>
+    <li><b>Algorithmic trading research platform (quant, data).</b> Research-and-backtesting stack
+        for systematic strategies, with a discipline for validating real edges after costs rather
+        than chasing noise.</li>
+  </ul>
+  <p class="small">Company names, dates and metrics to be added.</p>
 
-      <div class="item">
-        <span class="tag">0 → 1 · AI systems</span>
-        <h3>Multi-agent personal-assistant platform</h3>
-        <p>Designed and run a self-hosted, multi-agent assistant: isolated agent "brains" with their own memory, tools and routing, scheduled jobs, and messaging integrations — a practical study in agent orchestration, isolation, and cost control.</p>
-      </div>
+  <h2>Writing</h2>
+  <ul>
+    <li><a href="blog/type-thinking.html">Type Thinking</a> — designing so illegal states can't be written down.</li>
+    <li><a href="blog/functional-programming.html">What FP Actually Buys You</a> — purity, immutability, composition as local reasoning.</li>
+    <li><a href="blog/configuration-hell.html">Escaping Configuration Hell</a> — making config typed, validated, and boring again.</li>
+  </ul>
 
-      <div class="item">
-        <span class="tag">Quant · data engineering</span>
-        <h3>Algorithmic trading research platform</h3>
-        <p>Built a research-and-backtesting stack for systematic strategies (factor / swing), with a disciplined approach to validating real edges after costs rather than chasing noise — a portfolio piece in rigor, data plumbing, and honest evaluation.</p>
-      </div>
+  <h2>Contact</h2>
+  <ul>
+    <li>Email: <a href="mailto:REPLACE_EMAIL">REPLACE_EMAIL</a></li>
+    <li>GitHub: <a href="https://github.com/ansh-agarwal">github.com/ansh-agarwal</a></li>
+    <li>LinkedIn: <a href="REPLACE_LINKEDIN">add link</a></li>
+  </ul>
 
-    </div>
-    <p class="note" style="margin-top:18px">Metrics, company names and dates intentionally left to confirm — these will be filled from your LinkedIn / inputs.</p>
-  </section>
+  <hr />
+  <p class="center small">&copy; <span id="yr"></span> Anshul Agarwal</p>
+  <script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 
-  <!-- ABOUT -->
-  <section id="about">
-    <h2>About</h2>
-    <p class="lead" style="margin-bottom:18px">I build and lead engineering for systems that have to hold up — APIs, platforms, and the messy real-world flows behind them.</p>
-    <p style="color:var(--mut);font-size:17px;max-width:660px">My instinct is to start from the problem, not the framework: model the domain honestly, make the hard cases <em>representable</em> rather than patched-over, and let good structure carry the weight so the code — and the team — stays simple as things grow. I'm equally at home going deep on a type model or a data flow and stepping back to set technical direction. Most of my best work is unglamorous: turning a tangled requirement into a clean contract, and a fragile system into one people can reason about.</p>
-    <div class="skills">
-      <span class="chip">System design</span>
-      <span class="chip">API design</span>
-      <span class="chip">Distributed systems</span>
-      <span class="chip">Product strategy</span>
-      <span class="chip">LLM / multi-agent</span>
-      <span class="chip">Backend</span>
-      <span class="chip">Data &amp; backtesting</span>
-      <span class="chip">Technical leadership</span>
-    </div>
-  </section>
-
-  <!-- WRITING -->
-  <section id="writing">
-    <h2>Writing</h2>
-    <p class="lead" style="margin-bottom:26px">Notes on the ideas I keep coming back to — making structure do the work.</p>
-    <div class="grid">
-      <a class="card" href="blog/type-thinking.html" style="text-decoration:none;color:inherit">
-        <span class="ic">🧩</span><h3>Type Thinking</h3>
-        <p>Designing so the illegal states can't be written down — types as the first line of design, not an afterthought.</p>
-      </a>
-      <a class="card" href="blog/functional-programming.html" style="text-decoration:none;color:inherit">
-        <span class="ic">λ</span><h3>What FP Actually Buys You</h3>
-        <p>Past the jargon: purity, immutability and composition as tools for taming complexity in real systems.</p>
-      </a>
-      <a class="card" href="blog/configuration-hell.html" style="text-decoration:none;color:inherit">
-        <span class="ic">🔧</span><h3>Escaping Configuration Hell</h3>
-        <p>Why config sprawls into chaos, and how to pull it back to something typed, validated and boring.</p>
-      </a>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact">
-    <h2>Get in touch</h2>
-    <p class="lead">Open to fractional CTO, technical advisory, and architecture-review engagements.</p>
-    <div class="cta">
-      <a class="btn primary" href="mailto:REPLACE_EMAIL">Email me</a>
-      <a class="btn ghost" href="https://github.com/ansh-agarwal" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn ghost" href="REPLACE_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
-    </div>
-    <p class="note" style="margin-top:18px">Email &amp; LinkedIn links are placeholders — send me the real ones and I'll wire them in.</p>
-  </section>
-
-  <footer>© <span id="yr"></span> Anshul Agarwal · Draft portfolio · built by Shlokam</footer>
-</div>
-<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 </body>
 </html>
