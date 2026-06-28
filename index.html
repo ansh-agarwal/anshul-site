@@ -120,7 +120,8 @@
   <!-- ABOUT -->
   <section id="about">
     <h2>About</h2>
-    <p class="lead">Staff-level engineer with a product mindset — I like the seam where engineering meets product strategy: choosing what to build, designing it to last, and getting it into users' hands. Comfortable going deep on architecture and zooming out to set direction.</p>
+    <p class="lead" style="margin-bottom:18px">I build and lead engineering for systems that have to hold up — APIs, platforms, and the messy real-world flows behind them.</p>
+    <p style="color:var(--mut);font-size:17px;max-width:660px">My instinct is to start from the problem, not the framework: model the domain honestly, make the hard cases <em>representable</em> rather than patched-over, and let good structure carry the weight so the code — and the team — stays simple as things grow. I'm equally at home going deep on a type model or a data flow and stepping back to set technical direction. Most of my best work is unglamorous: turning a tangled requirement into a clean contract, and a fragile system into one people can reason about.</p>
     <div class="skills">
       <span class="chip">System design</span>
       <span class="chip">API design</span>
@@ -130,6 +131,26 @@
       <span class="chip">Backend</span>
       <span class="chip">Data &amp; backtesting</span>
       <span class="chip">Technical leadership</span>
+    </div>
+  </section>
+
+  <!-- WRITING -->
+  <section id="writing">
+    <h2>Writing</h2>
+    <p class="lead" style="margin-bottom:26px">Notes on the ideas I keep coming back to — making structure do the work.</p>
+    <div class="grid">
+      <a class="card" href="blog/type-thinking.html" style="text-decoration:none;color:inherit">
+        <span class="ic">🧩</span><h3>Type Thinking</h3>
+        <p>Designing so the illegal states can't be written down — types as the first line of design, not an afterthought.</p>
+      </a>
+      <a class="card" href="blog/functional-programming.html" style="text-decoration:none;color:inherit">
+        <span class="ic">λ</span><h3>What FP Actually Buys You</h3>
+        <p>Past the jargon: purity, immutability and composition as tools for taming complexity in real systems.</p>
+      </a>
+      <a class="card" href="blog/configuration-hell.html" style="text-decoration:none;color:inherit">
+        <span class="ic">🔧</span><h3>Escaping Configuration Hell</h3>
+        <p>Why config sprawls into chaos, and how to pull it back to something typed, validated and boring.</p>
+      </a>
     </div>
   </section>
 

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Type Thinking — Anshul Agarwal</title>
+<style>
+  :root{--bg:#0b1120;--txt:#e2e8f0;--mut:#a3b2c7;--dim:#64748b;--line:rgba(255,255,255,.08);--accent:#38bdf8;--accent2:#818cf8;--code:#0f1c33;}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 600px at 70% -10%,#15213b 0,var(--bg) 55%);color:var(--txt);line-height:1.7;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:720px;margin:0 auto;padding:64px 24px}
+  a.back{color:var(--accent);text-decoration:none;font-size:14px}a.back:hover{text-decoration:underline}
+  .eyebrow{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:28px 0 12px}
+  h1{font-size:clamp(30px,5vw,42px);line-height:1.12;letter-spacing:-.02em;margin-bottom:14px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .meta{color:var(--dim);font-size:14px;margin-bottom:36px}
+  h2{font-size:22px;margin:36px 0 12px;letter-spacing:-.01em}
+  p{color:var(--mut);font-size:17px;margin-bottom:18px}
+  ul{color:var(--mut);font-size:17px;margin:0 0 18px 22px}li{margin:6px 0}
+  em{color:#cbd5e1}strong{color:#e2e8f0}
+  pre{background:var(--code);border:1px solid var(--line);border-radius:12px;padding:18px;overflow:auto;margin-bottom:20px;font-size:14px}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#9ad8ff}
+  p code,li code{background:var(--code);padding:2px 6px;border-radius:6px;font-size:15px}
+  blockquote{border-left:3px solid var(--accent);padding-left:16px;margin:0 0 20px;color:#cbd5e1;font-style:italic}
+  footer{border-top:1px solid var(--line);margin-top:48px;padding-top:24px;color:var(--dim);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../index.html">← Back</a>
+  <div class="eyebrow">Essay</div>
+  <h1>Type Thinking</h1>
+  <div class="meta">Designing so the wrong thing can't be written down</div>
+
+  <p>Most bugs aren't logic errors. They're <em>states that should never have existed in the first place</em> — an order that's both <code>shipped</code> and <code>cancelled</code>, a price with no currency, a "custom" payment option carrying a fixed amount. We then spend our careers writing defensive checks to catch states we accidentally made possible. Type thinking flips the order of operations: instead of allowing everything and validating after, you <strong>make the illegal states unrepresentable</strong>, so the validation is structural and the compiler is on your side.</p>
+
+  <h2>The core move: model the domain, then let the shape forbid mistakes</h2>
+  <p>Consider a payment that can be paid in cash, in points, or split between them. The lazy model is a bag of optional fields:</p>
+  <pre><code>// everything optional → every combination "possible"
+{ cash?: number, points?: number, isCustom?: boolean, min?: number, max?: number }</code></pre>
+  <p>Now <code>cash</code> and <code>points</code> can both be null. <code>isCustom</code> can be true with a fixed <code>cash</code>. Every consumer must re-check the same invariants, forever. The typed version names the real choices and closes the door:</p>
+  <pre><code>type PaymentOption =
+  | { kind: "FIXED";  cash: Money; burn: Money }
+  | { kind: "CUSTOM"; lever: "burn"; range: { min: Money; max: Money; step: number } }</code></pre>
+  <p>A <em>discriminated union</em>. There is no way to construct a CUSTOM option with a fixed amount — the field simply isn't there. The check that used to live in twelve call-sites now lives once, in the type. This is the same reasoning that turned a messy offers API into a clean contract: the structure carries the rules.</p>
+
+  <h2>Make impossible states impossible</h2>
+  <p>A few patterns do most of the work:</p>
+  <ul>
+    <li><strong>Sum types over flag soup.</strong> "One of these shapes" beats "many optional fields that happen to combine."</li>
+    <li><strong>Newtypes over primitives.</strong> <code>Money</code>, <code>UserId</code>, <code>Points</code> — not <code>number</code>, <code>number</code>, <code>number</code>. A function that takes <code>(Money, Points)</code> can't be called with the arguments swapped.</li>
+    <li><strong>Parse, don't validate.</strong> Convert untrusted input into a precise type <em>once</em>, at the boundary. Past that line, the rest of the system trusts the type instead of re-checking strings.</li>
+    <li><strong>Non-empty where empty is a bug.</strong> If a list must have at least one element, say so in the type rather than asserting at runtime.</li>
+  </ul>
+
+  <blockquote>The goal isn't more types. It's fewer reachable states — ideally exactly the ones the business actually allows.</blockquote>
+
+  <h2>Why it scales (and why leaders should care)</h2>
+  <p>Tests check the cases you remembered. Types check the cases you didn't. When a new engineer joins, a precise type is the cheapest, most honest documentation there is — it tells them what's possible without a meeting. And when requirements change, you change the type and the compiler hands you the exact list of places to update. That feedback loop is the difference between a codebase that ossifies and one that stays malleable as it grows.</p>
+
+  <p>Type thinking isn't about a particular language or about ceremony. It's a design discipline: <em>spend your effort up front making the wrong thing impossible, so you spend far less of it later chasing the wrong thing down.</em></p>
+
+  <footer>Anshul Agarwal · Writing</footer>
+</div>
+</body>
+</html>
